@@ -58,36 +58,44 @@ class _HomePageState extends State<HomePage> {
                         shrinkWrap: true,
                         itemCount: snapshot.data?.length,
                         itemBuilder: (context, index) {
-                          return Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: Image.network(
-                                  "${snapshot.data?[index].flags?.png}",
-                                  width: 40,
-                                ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "${snapshot.data?[index].name?.common}",
-                                    style: const TextStyle(
-                                        fontFamily: "Axiforma",
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 14),
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 26),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  clipBehavior: Clip.hardEdge,
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: Image.network(
+                                    "${snapshot.data?[index].flags?.png}",
+                                    height: 40,
+                                    width: 40,
+                                    fit: BoxFit.fitHeight,
                                   ),
-                                  Text(
-                                    "${snapshot.data?[index].capital == null ? "" : snapshot.data?[index].capital[0]}",
-                                    style: const TextStyle(
-                                        fontFamily: "Axiforma",
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 14),
-                                  )
-                                ],
-                              ),
-                            ],
+                                ),
+                                const SizedBox(
+                                  width: 16,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${snapshot.data?[index].name?.common}",
+                                      style: const TextStyle(
+                                          fontFamily: "Axiforma",
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 14),
+                                    ),
+                                    Text(
+                                      "${snapshot.data?[index].capital == null ? "" : snapshot.data?[index].capital[0]}",
+                                      style: const TextStyle(
+                                          fontFamily: "Axiforma",
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           );
                         }),
                   ),
