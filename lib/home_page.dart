@@ -26,6 +26,8 @@ class _HomePageState extends State<HomePage> {
     countries = APIService().getCountries();
   }
 
+  String searchParameter = "";
+
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -62,9 +64,16 @@ class _HomePageState extends State<HomePage> {
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: HexColor("#F2F4F7"),
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        color: Colors.black,
+                      prefixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            searchParameter = _searchController.text;
+                          });
+                        },
+                        icon: Icon(
+                          Icons.search,
+                          color: Colors.black,
+                        ),
                       ),
                       hintText: "Search Country",
                       hintStyle: const TextStyle(
@@ -78,45 +87,54 @@ class _HomePageState extends State<HomePage> {
                         shrinkWrap: true,
                         itemCount: snapshot.data?.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 26),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  clipBehavior: Clip.hardEdge,
-                                  borderRadius: BorderRadius.circular(5),
-                                  child: Image.network(
-                                    "${snapshot.data?[index].flags?.png}",
-                                    height: 40,
-                                    width: 40,
-                                    fit: BoxFit.fitHeight,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 16,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "${snapshot.data?[index].name?.common}",
-                                      style: const TextStyle(
-                                          fontFamily: "Axiforma",
-                                          fontWeight: FontWeight.w900,
-                                          fontSize: 14),
+                          if (snapshot.data?[index].name?.common!
+                                  .toLowerCase()
+                                  .contains(
+                                      _searchController.text.toLowerCase()) ==
+                              true) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 26),
+                              child: Row(
+                                children: [
+                                  ClipRRect(
+                                    clipBehavior: Clip.hardEdge,
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: Image.network(
+                                      "${snapshot.data?[index].flags?.png}",
+                                      height: 40,
+                                      width: 40,
+                                      fit: BoxFit.fitHeight,
                                     ),
-                                    Text(
-                                      "${snapshot.data?[index].capital == null ? "" : snapshot.data?[index].capital[0]}",
-                                      style: const TextStyle(
-                                          fontFamily: "Axiforma",
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
+                                  ),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${snapshot.data?[index].name?.common}",
+                                        style: const TextStyle(
+                                            fontFamily: "Axiforma",
+                                            fontWeight: FontWeight.w900,
+                                            fontSize: 14),
+                                      ),
+                                      Text(
+                                        "${snapshot.data?[index].capital == null ? "" : snapshot.data?[index].capital[0]}",
+                                        style: const TextStyle(
+                                            fontFamily: "Axiforma",
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 14),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          } else {
+                            return Container();
+                          }
                         }),
                   ),
                 ],
