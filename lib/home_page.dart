@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stage3_task_hng/country_model.dart';
 import 'api_service.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,6 +25,8 @@ class _HomePageState extends State<HomePage> {
   getData() async {
     countries = APIService().getCountries();
   }
+
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +55,23 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const Icon(CupertinoIcons.sun_max)
                     ],
+                  ),
+                  TextField(
+                    controller: _searchController,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: HexColor("#F2F4F7"),
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: Colors.black,
+                      ),
+                      hintText: "Search Country",
+                      hintStyle: const TextStyle(
+                          fontFamily: "Axiforma",
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300),
+                    ),
                   ),
                   Flexible(
                     child: ListView.builder(
