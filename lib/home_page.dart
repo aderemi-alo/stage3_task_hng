@@ -60,7 +60,33 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (context, index) {
                           return Row(
                             children: [
-                              Text("${snapshot.data?[index].name?.common}"),
+                              Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Image.network(
+                                  "${snapshot.data?[index].flags?.png}",
+                                  width: 40,
+                                ),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${snapshot.data?[index].name?.common}",
+                                    style: const TextStyle(
+                                        fontFamily: "Axiforma",
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 14),
+                                  ),
+                                  Text(
+                                    "${snapshot.data?[index].capital == null ? "" : snapshot.data?[index].capital[0]}",
+                                    style: const TextStyle(
+                                        fontFamily: "Axiforma",
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14),
+                                  )
+                                ],
+                              ),
                             ],
                           );
                         }),
@@ -70,7 +96,7 @@ class _HomePageState extends State<HomePage> {
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }
-            return const Text("erroe");
+            return const Text("error");
           }),
     ));
   }
