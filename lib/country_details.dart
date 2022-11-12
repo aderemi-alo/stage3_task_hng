@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'country_model.dart';
@@ -83,7 +84,40 @@ class _CountryDetailsState extends State<CountryDetails> {
                 }
                 // if(snapshot.data[widget.index])
                 return Column(
-                  children: [],
+                  children: [
+                    CarouselSlider(
+                      items: [
+                        Image.network(
+                          "${snapshot.data?[widget.index].flags?.png}",
+                        ),
+                        Image.network(
+                            "${snapshot.data?[widget.index].coatOfArms?.png}")
+                      ],
+                      options: CarouselOptions(
+                        pageSnapping: true,
+                        height: 200,
+                      ),
+                    ),
+                    SizedBox(height: 24),
+                    CountryDetailRow(
+                      field: "Population",
+                      jsonLocation:
+                          "${snapshot.data?[widget.index].population}",
+                    ),
+                    CountryDetailRow(
+                        field: "Region",
+                        jsonLocation: "${snapshot.data?[widget.index].region}"),
+                    CountryDetailRow(
+                        field: "Capital",
+                        jsonLocation:
+                            "${snapshot.data?[widget.index].capital == null ? "" : snapshot.data?[widget.index].capital[0]}"),
+                    SizedBox(height: 24),
+                    CountryDetailRow(
+                        field: "Official Language",
+                        jsonLocation:
+                            "${snapshot.data?[widget.index].languages!.ara}"),
+                    // CountryDetailRow(field: "Religion", jsonLocation: "${snapshot.data?[widget.index].}")
+                  ],
                 );
               } else {
                 return Text("error");
@@ -92,6 +126,42 @@ class _CountryDetailsState extends State<CountryDetails> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CountryDetailRow extends StatelessWidget {
+  const CountryDetailRow({
+    Key? key,
+    required this.field,
+    required this.jsonLocation,
+  }) : super(key: key);
+
+  final String field;
+  final String jsonLocation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          "$field:",
+          style: const TextStyle(
+              fontFamily: "Axiforma",
+              fontSize: 16,
+              fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(
+          width: 8,
+        ),
+        Text(
+          jsonLocation,
+          style: const TextStyle(
+              fontFamily: "Axiforma",
+              fontSize: 16,
+              fontWeight: FontWeight.w500),
+        )
+      ],
     );
   }
 }
