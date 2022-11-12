@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stage3_task_hng/country_details.dart';
 import 'package:stage3_task_hng/home_page.dart';
 
 void main() {
@@ -13,10 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+      home: const HomePage(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
     );
   }
 }
