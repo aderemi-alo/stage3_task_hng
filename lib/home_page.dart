@@ -72,18 +72,12 @@ class _HomePageState extends State<HomePage> {
                         });
                       },
                       textAlign: TextAlign.center,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         filled: true,
-                        fillColor: HexColor("#F2F4F7"),
-                        prefixIcon: const Icon(
+                        prefixIcon: Icon(
                           Icons.search,
-                          color: Colors.black,
                         ),
                         hintText: "Search Country",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Axiforma",
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300),
                       ),
                     ),
                     const SizedBox(
@@ -138,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                                             "${snapshot.data?[index].name?.common}",
                                             style: const TextStyle(
                                                 fontFamily: "Axiforma",
-                                                fontWeight: FontWeight.w900,
+                                                fontWeight: FontWeight.w600,
                                                 fontSize: 14),
                                           ),
                                           Text(
@@ -148,7 +142,6 @@ class _HomePageState extends State<HomePage> {
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 14),
                                           ),
-                                          Text("$index")
                                         ],
                                       ),
                                     ],

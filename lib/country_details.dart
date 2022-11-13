@@ -34,12 +34,10 @@ class _CountryDetailsState extends State<CountryDetails> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(
+          icon: const Icon(
             CupertinoIcons.arrow_left,
-            color: Colors.black,
           ),
         ),
         title: FutureBuilder<List<CountryModel>>(
@@ -55,28 +53,23 @@ class _CountryDetailsState extends State<CountryDetails> {
               // if(snapshot.data[widget.index])
               return Text(
                 "${snapshot.data?[widget.index].name?.common}",
-                style: TextStyle(
-                    fontFamily: "Axiforma",
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black,
-                    fontSize: 25),
               );
             } else {
-              return Text("error");
+              return const Text("error");
             }
           },
         ),
       ),
       body: SafeArea(
-        minimum: EdgeInsets.symmetric(horizontal: 24),
+        minimum: const EdgeInsets.symmetric(horizontal: 24),
         child: Padding(
-          padding: EdgeInsets.only(top: 15),
+          padding: const EdgeInsets.only(top: 15),
           // child: Text("${widget.index}"),
           child: FutureBuilder<List<CountryModel>>(
             future: countries,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: const CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               if (snapshot.hasData) {
                 if (snapshot.data == null) {
@@ -98,7 +91,7 @@ class _CountryDetailsState extends State<CountryDetails> {
                         height: 200,
                       ),
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     CountryDetailRow(
                       field: "Population",
                       jsonLocation:
@@ -111,16 +104,25 @@ class _CountryDetailsState extends State<CountryDetails> {
                         field: "Capital",
                         jsonLocation:
                             "${snapshot.data?[widget.index].capital == null ? "" : snapshot.data?[widget.index].capital[0]}"),
-                    SizedBox(height: 24),
                     CountryDetailRow(
                         field: "Official Language",
                         jsonLocation:
                             "${snapshot.data?[widget.index].languages!.ara}"),
+                    const SizedBox(height: 24),
+                    CountryDetailRow(
+                        field: "Area",
+                        jsonLocation:
+                            "${snapshot.data?[widget.index].area} km2"),
+                    // CountryDetailRow(
+                    //     field: "Currency",
+                    //     jsonLocation:
+                    //         "${snapshot.data?[widget.index].currencie}")
+
                     // CountryDetailRow(field: "Religion", jsonLocation: "${snapshot.data?[widget.index].}")
                   ],
                 );
               } else {
-                return Text("error");
+                return const Text("error");
               }
             },
           ),
