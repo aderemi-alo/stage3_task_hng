@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stage3_task_hng/country_details.dart';
 import 'package:stage3_task_hng/country_model.dart';
 import 'api_service.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
             future: countries,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
+                return const Center(child: CircularProgressIndicator());
               }
               if (snapshot.hasData) {
                 if (snapshot.data == null) {
@@ -79,6 +79,36 @@ class _HomePageState extends State<HomePage> {
                         ),
                         hintText: "Search Country",
                       ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton.icon(
+                          onPressed: () {},
+                          icon: const Icon(CupertinoIcons.globe),
+                          label: const Text("EN"),
+                        ),
+                        ElevatedButton.icon(
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                    ),
+                                  ),
+                                  builder: (BuildContext context) {
+                                    return const Contains();
+                                  });
+                            },
+                            icon: const Icon(Icons.filter),
+                            label: const Text("Filter"))
+                      ],
                     ),
                     const SizedBox(
                       height: 16,

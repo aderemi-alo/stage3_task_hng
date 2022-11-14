@@ -40,7 +40,8 @@ class MyApp extends StatelessWidget {
       home: const HomePage(),
       theme: ThemeData(
           appBarTheme: AppBarTheme(
-            backgroundColor: HexColor("#000F24"),
+            iconTheme: IconThemeData(color: Colors.black),
+            backgroundColor: Colors.white,
             titleTextStyle: const TextStyle(
                 fontFamily: "Axiforma",
                 fontWeight: FontWeight.w800,
